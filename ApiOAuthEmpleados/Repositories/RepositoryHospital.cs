@@ -24,6 +24,14 @@ namespace ApiOAuthEmpleados.Repositories
                 (x => x.IdEmpleado == idEmpleado);
         }
 
+        public async Task<List<Empleado>> 
+            GetCompisAsync(int idDepartamento)
+        {
+            return await this.context.Empleados
+                .Where(x => x.IdDepartamento == idDepartamento)
+                .ToListAsync();
+        }
+
         public async Task<Empleado> LogInEmpleadoAsync
             (string apellido, int idEmpleado)
         {
@@ -32,5 +40,6 @@ namespace ApiOAuthEmpleados.Repositories
                 && z.IdEmpleado == idEmpleado)
                 .FirstOrDefaultAsync();
         }
+
     }
 }

@@ -3,6 +3,8 @@ using ApiOAuthEmpleados.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace ApiOAuthEmpleados.Controllers
 {
@@ -27,6 +29,34 @@ namespace ApiOAuthEmpleados.Controllers
         public async Task<ActionResult<Empleado>> FindEmpleado(int id)
         {
             return await this.repo.FindEmpleadoAsync(id);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<Empleado>> Perfil()
+        {
+            Claim claim = HttpContext.User.FindFirst
+                (z => z.Type == "UserData");
+            string jsonEmpleado = claim.Value;
+            Empleado empleado = JsonConvert.DeserializeObject
+                <Empleado>(jsonEmpleado);
+            return await this.repo.FindEmpleadoAsync
+                (empleado.IdEmpleado);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<List<Empleado>>> Compis()
+        {
+            Claim claim = HttpContext.User.FindFirst
+                (z => z.Type == "UserData");
+            string jsonEmpleado = claim.Value;
+            Empleado empleado = JsonConvert.DeserializeObject
+                <Empleado>(jsonEmpleado);
+            return await this.repo.GetCompisAsync
+                (empleado.IdDepartamento);
         }
     }
 }

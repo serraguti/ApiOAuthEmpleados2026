@@ -1,0 +1,13 @@
+﻿@model Empleado
+
+<div class="card" style="width: 18rem;">
+    <img src="~/images/user.png" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Apellido</h5>
+        <p class="card-text">@Model.Oficio</p>
+        <p class="card-text">@Model.Salario</p>
+        <p class="card-text">@Model.IdDepartamento</p>
+        <a asp-controller="Empleados"
+        asp-action="Index" class="btn btn-primary">Back To List</a>
+    </div>
+</div>

@@ -6,10 +6,21 @@
            asp-action="Index">Empleados</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link text-dark"
+           asp-controller="Empleados"
+           asp-action="Perfil">Perfil</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark"
+           asp-controller="Empleados"
+           asp-action="Compis">Compis</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link text-danger"
            asp-controller="Managed"
            asp-action="LogOut">
-           Log out @Context.User.Identity.Name
+           Log out <span style="color:blue">
+           @Context.User.Identity.Name</span>
         </a>
     </li>
 }
