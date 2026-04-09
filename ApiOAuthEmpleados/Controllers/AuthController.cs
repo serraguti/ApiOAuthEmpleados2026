@@ -62,9 +62,11 @@ namespace ApiOAuthEmpleados.Controllers
                     HelperCryptography.CifrarString(jsonEmpleado);
 
                 //CREAMOS UN ARRAY DE CLAIMS PARA EL TOKEN
+                //AQUI ALMACENAMOS EL ROLE DEL USUARIO
                 Claim[] informacion = new[]
                 {
-                    new Claim("UserData", jsonCypher)
+                    new Claim("UserData", jsonCypher),
+                    new Claim(ClaimTypes.Role, empleado.Oficio)
                 };
 
                 //EL TOKEN SE GENERA CON UNA CLASE Y DEBEMOS 

@@ -1,0 +1,67 @@
+﻿@model List<Empleado>
+
+@{
+    ViewData["Title"] = "EmpleadosOficios";
+}
+
+@{
+    List<string> oficios = ViewData["OFICIOS"] as List<string>;
+}
+
+<h1>Empleados Oficios Api</h1>
+
+<form method="post">
+    <label>Seleccione oficio/s</label>
+    <select name="oficio" size="5" multiple class="form-control">
+        @foreach(string ofi in oficios)
+            {
+                <option value="@ofi">@ofi</option>
+            }
+        </select>
+        <label>Incremento salarial:</label>
+        <input type="text" name="incremento" class="form-control" />
+        <button class="btn btn-info" value="show" name="accion">
+            Mostrar empleados
+        </button>
+        <button class="btn btn-warning" value="update" name="accion">
+            Incrementar salarios
+        </button>
+</form>
+
+@if (Model != null)
+{
+    <table class="table table-info">
+        <thead>
+            <tr>
+                <th>IdEmpleado</th>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+                <th>Departamento</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdEmpleado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Oficio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdDepartamento)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
