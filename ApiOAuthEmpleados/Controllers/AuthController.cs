@@ -45,12 +45,26 @@ namespace ApiOAuthEmpleados.Controllers
                     (this.helper.GetKeyToken(),
                     SecurityAlgorithms.HmacSha256);
 
+                //CREAMOS NUESTRO MODELO PARA ALMACENARLO EN 
+                //EL TOKEN
+                EmpleadoModel modelEmp = new EmpleadoModel
+                {
+                    IdEmpleado = empleado.IdEmpleado,
+                    Apellido = empleado.Apellido,
+                    Oficio = empleado.Oficio,
+                    Salario = empleado.Salario,
+                    IdDepartamento = empleado.IdDepartamento
+                };
+
                 string jsonEmpleado =
-                    JsonConvert.SerializeObject(empleado);
+                    JsonConvert.SerializeObject(modelEmp);
+                string jsonCypher =
+                    HelperCryptography.CifrarString(jsonEmpleado);
+
                 //CREAMOS UN ARRAY DE CLAIMS PARA EL TOKEN
                 Claim[] informacion = new[]
                 {
-                    new Claim("UserData", jsonEmpleado)
+                    new Claim("UserData", jsonCypher)
                 };
 
                 //EL TOKEN SE GENERA CON UNA CLASE Y DEBEMOS 

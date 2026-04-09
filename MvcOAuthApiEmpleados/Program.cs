@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using MvcOAuthApiEmpleados.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 builder.Services.AddHttpContextAccessor();
 
 // Add services to the container.

@@ -1,9 +1,33 @@
 ﻿using System.Security.Cryptography;
+using System.Text;
 
 namespace ApiOAuthEmpleados.Helpers
 {
-    public class HelperCryptography
+    public static class HelperCryptography
     {
+        private static string KeyCifrado;
+
+        public static void Initialize(IConfiguration configuration)
+        {
+            KeyCifrado = configuration.GetValue<string>("Cypher:Key");
+        }
+
+        public static string CifrarString(string data)
+        {
+            //CONVERTIMOS A BYTES LA KEY
+            byte[] keyData = Encoding.UTF8.GetBytes(KeyCifrado);
+            string res = EncryptString(keyData, data);
+            return res;
+        }
+
+        public static string DescifrarString(string data)
+        {
+            //CONVERTIMOS A BYTES LA KEY
+            byte[] keyData = Encoding.UTF8.GetBytes(KeyCifrado);
+            string res = DecryptString(keyData, data);
+            return res;
+        }
+
         private static string EncryptString(byte[] key, string plainText)
         {
             byte[] iv = new byte[16];
